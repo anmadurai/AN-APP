@@ -1,0 +1,33 @@
+-- INSERT INITIAL VIDEOS INTO DATABASE
+-- This query uses ON CONFLICT DO NOTHING to prevent errors if you run it multiple times.
+
+INSERT INTO public.videos (title, youtube_video_id, thumbnail_url) VALUES 
+('Sunday Morning Service 29-03-26', 'D86E8qdnw98', 'https://img.youtube.com/vi/D86E8qdnw98/maxresdefault.jpg'),
+('Sunday Evening Service 22-03-26', 'CkEWTo242FU', 'https://img.youtube.com/vi/CkEWTo242FU/maxresdefault.jpg'),
+('Sunday Morning Service 22-03-26', 'Uco0eIZn_ko', 'https://img.youtube.com/vi/Uco0eIZn_ko/maxresdefault.jpg'),
+('Friday All Night Service 20-03-26', 'KyJelB0bmxM', 'https://img.youtube.com/vi/KyJelB0bmxM/maxresdefault.jpg'),
+('Sunday Evening Service 15-03-26', '81dz3-1nuQ8', 'https://img.youtube.com/vi/81dz3-1nuQ8/maxresdefault.jpg'),
+('Sunday Evening Service 08-03-26', 'uhGf9Zhc_Ig', 'https://img.youtube.com/vi/uhGf9Zhc_Ig/maxresdefault.jpg'),
+('Sunday Morning Service 08-03-26', 'VkN1oPyn6fk', 'https://img.youtube.com/vi/VkN1oPyn6fk/maxresdefault.jpg'),
+('Sunday Evening Service 01-03-26', '7d2Ow5FItso', 'https://img.youtube.com/vi/7d2Ow5FItso/maxresdefault.jpg'),
+('Sunday Morning Service 01-03-26', 'a6SUWi08mx8', 'https://img.youtube.com/vi/a6SUWi08mx8/maxresdefault.jpg'),
+('Sunday Evening Service 01-02-26', 'XoQTLVXR9gc', 'https://img.youtube.com/vi/XoQTLVXR9gc/maxresdefault.jpg'),
+('Sunday Morning Service 01-02-26', 'aNAJD7fW8sU', 'https://img.youtube.com/vi/aNAJD7fW8sU/maxresdefault.jpg'),
+('Sunday Morning Service 25-01-26', 'TB8ZyH2bxUw', 'https://img.youtube.com/vi/TB8ZyH2bxUw/maxresdefault.jpg'),
+('Sunday Evening Service 18-01-26', 'CZy3KwSTtFE', 'https://img.youtube.com/vi/CZy3KwSTtFE/maxresdefault.jpg'),
+('Sunday Evening Service 11-01-26', 'la3Dy_LubAE', 'https://img.youtube.com/vi/la3Dy_LubAE/maxresdefault.jpg'),
+('Sunday Morning Service 11-01-26', 'yGRiCFYTmlo', 'https://img.youtube.com/vi/yGRiCFYTmlo/maxresdefault.jpg'),
+('Sunday Evening Service 04-01-26', 'bZa_36h7IxI', 'https://img.youtube.com/vi/bZa_36h7IxI/maxresdefault.jpg'),
+('Sunday Morning Service 04-01-26', 'inWfLkfHmLY', 'https://img.youtube.com/vi/inWfLkfHmLY/maxresdefault.jpg'),
+('NEW YEAR SERVICE - 2026', 'AD54GDkbVTs', 'https://img.youtube.com/vi/AD54GDkbVTs/maxresdefault.jpg'),
+('Sunday Second Service 28-12-2025', 'ClA6FPrY33k', 'https://img.youtube.com/vi/ClA6FPrY33k/maxresdefault.jpg'),
+('Sunday Evening Service 21-12-25', '5HYGQuoGzW0', 'https://img.youtube.com/vi/5HYGQuoGzW0/maxresdefault.jpg'),
+('Sunday Morning Service 21-12-25', 'ss3snHQE8fc', 'https://img.youtube.com/vi/ss3snHQE8fc/maxresdefault.jpg'),
+('Friday All Night Service 19-12-25', 'haKAbKoLLDg', 'https://img.youtube.com/vi/haKAbKoLLDg/maxresdefault.jpg'),
+('Wednesday Service 17-12-25', 'uZJQtDZrwzw', 'https://img.youtube.com/vi/uZJQtDZrwzw/maxresdefault.jpg'),
+('Sunday Second Service 14-12-25', '43nldZKbvT4', 'https://img.youtube.com/vi/43nldZKbvT4/maxresdefault.jpg'),
+('Sunday Morning Service 14-12-25', 'ZsLLk0Yx78M', 'https://img.youtube.com/vi/ZsLLk0Yx78M/maxresdefault.jpg'),
+('Friday All Night Service 12-12-25', 'oOPwWv7ID4s', 'https://img.youtube.com/vi/oOPwWv7ID4s/maxresdefault.jpg'),
+('Sunday Evening Service 07-12-25', 'RfsJpkjHRas', 'https://img.youtube.com/vi/RfsJpkjHRas/maxresdefault.jpg'),
+('Sunday Morning Service 07-12-25', 'm5rUDxJTQjc', 'https://img.youtube.com/vi/m5rUDxJTQjc/maxresdefault.jpg'),
+('Friday All Night Service 05-12-25', 'ht8rpqm04j8', 'https://img.youtube.com/vi/ht8rpqm04j8/maxresdefault.jpg');
