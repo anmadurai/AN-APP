@@ -40,4 +40,14 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+// Catch-all route for debugging Vercel deployment
+app.use('*', (req, res) => {
+  res.status(404).json({
+    message: 'Express catch-all 404',
+    url: req.url,
+    originalUrl: req.originalUrl,
+    path: req.path
+  });
+});
+
 module.exports = app;
