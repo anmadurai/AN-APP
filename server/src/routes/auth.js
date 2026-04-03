@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const supabase = require('../config/supabase');
 const { authenticateToken } = require('../middleware/auth');
 const crypto = require('crypto');
