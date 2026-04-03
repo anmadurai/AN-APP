@@ -10,6 +10,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// EMERGENCY DEBUG: Return immediately for /health before any other code runs
+app.get('/health', (req, res) => res.status(200).send('OK'));
+app.get('/api/health', (req, res) => res.status(200).send('API OK'));
+
 // Middleware
 const allowedOrigins = [
   process.env.CLIENT_URL,
