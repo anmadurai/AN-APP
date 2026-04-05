@@ -46,11 +46,11 @@ const Home = () => {
           backgroundImage: 'url("/hero-bg.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center 20%',
-          filter: 'blur(8px) brightness(0.9)',
+          filter: 'blur(4px) brightness(0.9)',
           transform: 'scale(1.1)', // Prevents blurred edges from showing
           zIndex: 0
         }} />
-        
+
         {/* Soft Overlay for readability */}
         <div style={{
           position: 'absolute',
@@ -68,7 +68,7 @@ const Home = () => {
             margin: '0 auto',
             textAlign: 'center'
           }}>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               style={{ fontSize: '4rem', color: 'var(--text-main)', marginBottom: '1.5rem', lineHeight: 1.1 }}
