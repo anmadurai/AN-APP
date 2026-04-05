@@ -46,27 +46,27 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               style={{ fontSize: '4rem', color: 'var(--text-main)', marginBottom: '1.5rem', lineHeight: 1.1 }}
             >
-              Discover Spiritual <br /><span style={{ color: 'var(--primary)' }}>Transformation</span>
+              Discover Our Shepherd's<br /><span style={{ color: 'var(--primary)' }}>Power and Love </span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               style={{ fontSize: '1.25rem', color: 'var(--secondary)', marginBottom: '2.5rem' }}
             >
-              Welcome to ALL MADURAI HOLINESS CHURCH. Watch our latest sermons and join our community of faith and devotion.
+              Welcome to ALL MADURAI HOLINESS CHURCH. Watch our Spritual sermons and join  With us And Lets go Together to new jerusalem  of faith and devotion.
             </motion.p>
-            <motion.div 
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ delay: 0.2 }}
-               style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}
             >
               <Link to="/sermons" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>
                 <Play size={20} fill="white" /> Start Watching
               </Link>
               <Link to="/login" className="btn btn-secondary" style={{ padding: '1rem 2rem' }}>
-                Join Community
+                Join  with us
               </Link>
             </motion.div>
           </div>
@@ -82,10 +82,10 @@ const Home = () => {
           marginBottom: '2rem'
         }}>
           <div>
-            <span style={{ 
-              color: 'var(--primary)', 
-              fontWeight: 700, 
-              textTransform: 'uppercase', 
+            <span style={{
+              color: 'var(--primary)',
+              fontWeight: 700,
+              textTransform: 'uppercase',
               letterSpacing: '0.1em',
               fontSize: '0.75rem'
             }}>Latest Teaching</span>
@@ -100,13 +100,13 @@ const Home = () => {
           <div style={{ textAlign: 'center', padding: '4rem' }}>Loading sermons...</div>
         ) : (
           <div className="grid grid-cols-1 grid-cols-2 grid-cols-3">
-             {recentVideos.length > 0 ? (
-               recentVideos.map((vid) => (
-                 <VideoCard key={vid.id} video={vid} onPlay={setSelectedVideo} />
-               ))
-             ) : (
-               <div style={{ color: 'var(--text-muted)' }}>No sermons added yet.</div>
-             )}
+            {recentVideos.length > 0 ? (
+              recentVideos.map((vid) => (
+                <VideoCard key={vid.id} video={vid} onPlay={setSelectedVideo} />
+              ))
+            ) : (
+              <div style={{ color: 'var(--text-muted)' }}>No sermons added yet.</div>
+            )}
           </div>
         )}
       </section>
