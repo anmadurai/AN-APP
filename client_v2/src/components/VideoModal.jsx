@@ -11,7 +11,7 @@ const VideoModal = ({ video, onClose }) => {
   useEffect(() => {
     if (!video) return;
 
-    // Load YT API if not already loaded
+    // Load YT API
     if (!window.YT) {
       const tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
@@ -29,7 +29,10 @@ const VideoModal = ({ video, onClose }) => {
           rel: 0,
           modestbranding: 1,
           disablekb: 1,
-          fs: 0
+          fs: 0,
+          iv_load_policy: 3,
+          showinfo: 0,
+          autohide: 1
         },
         events: {
           onReady: (event) => {
@@ -55,7 +58,8 @@ const VideoModal = ({ video, onClose }) => {
     };
   }, [video]);
 
-  const togglePlay = () => {
+  const togglePlay = (e) => {
+    if (e) e.stopPropagation();
     if (!playerRef.current) return;
     if (isPlaying) {
       playerRef.current.pauseVideo();
@@ -64,13 +68,15 @@ const VideoModal = ({ video, onClose }) => {
     }
   };
 
-  const seek = (seconds) => {
+  const seek = (seconds, e) => {
+    if (e) e.stopPropagation();
     if (!playerRef.current) return;
     const currentTime = playerRef.current.getCurrentTime();
     playerRef.current.seekTo(currentTime + seconds, true);
   };
 
-  const toggleFullscreen = () => {
+  const toggleFullscreen = (e) => {
+    if (e) e.stopPropagation();
     if (!containerRef.current) return;
     if (!document.fullscreenElement) {
       containerRef.current.requestFullscreen();
@@ -88,13 +94,13 @@ const VideoModal = ({ video, onClose }) => {
       style={{
         position: 'fixed',
         top: 0, left: 0, right: 0, bottom: 0,
-        background: 'rgba(0,0,0,0.9)',
+        background: 'rgba(0,0,0,0.95)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem',
-        backdropFilter: 'blur(12px)'
+        backdropFilter: 'blur(16px)'
       }}
       onClick={onClose}
     >
@@ -102,81 +108,97 @@ const VideoModal = ({ video, onClose }) => {
         ref={containerRef}
         style={{
           width: '100%',
-          maxWidth: isFullscreen ? '100%' : '1000px',
+          maxWidth: isFullscreen ? '100%' : '1100px',
           background: 'black',
           position: 'relative',
-          borderRadius: isFullscreen ? 0 : '24px',
+          borderRadius: isFullscreen ? 0 : '16px',
           overflow: 'hidden',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.8)',
+          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.9)',
           aspectRatio: '16/9'
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+            e.stopPropagation();
+            setShowControls(true);
+        }}
         onMouseMove={() => {
             setShowControls(true);
             clearTimeout(window.controlTimeout);
-            window.controlTimeout = setTimeout(() => setShowControls(false), 3000);
+            window.controlTimeout = setTimeout(() => setShowControls(false), 4000);
         }}
       >
         {/* PLAYER HUB */}
-        <div id="yt-player" style={{ width: '100%', height: '100%' }} />
+        <div id="yt-player" style={{ width: '100%', height: '100%', pointerEvents: 'none' }} />
 
-        {/* CUSTOM CONTROLS OVERLAY */}
+        {/* CLICK OVERLAY (To block native YT interactions and handle play/pause) */}
+        <div 
+          onClick={togglePlay}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'transparent',
+            zIndex: 5,
+            cursor: 'pointer'
+          }}
+        />
+
+        {/* TOP BAR (Title and Close) */}
         <div style={{
           position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.4) 100%)',
+          top: 0, left: 0, right: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)',
+          padding: '1rem 1.5rem',
           display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '1.5rem',
+          alignItems: 'center',
           opacity: showControls ? 1 : 0,
           transition: 'opacity 0.4s ease',
-          pointerEvents: showControls ? 'auto' : 'none',
-          color: 'white',
-          zIndex: 10
+          zIndex: 10,
+          color: 'white'
         }}>
-          {/* Top Bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ fontWeight: 600, fontSize: '1.1rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{video.title}</div>
-            <button onClick={onClose} style={{ color: 'white', opacity: 0.8 }}><X size={24} /></button>
+          <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 500 }}>{video.title}</h3>
+          <button onClick={onClose} style={{ color: 'white', opacity: 0.8, cursor: 'pointer' }}>
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* LANDSCAPE CONTROLS (At the bottom) */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+          padding: '2rem 1.5rem 1rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.5rem',
+          opacity: showControls ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+          zIndex: 10,
+          color: 'white'
+        }}>
+          {/* Main Actions */}
+          <button onClick={togglePlay} style={{ color: 'white', cursor: 'pointer' }}>
+            {isPlaying ? <Pause size={28} fill="white" /> : <Play size={28} fill="white" />}
+          </button>
+          
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            <button onClick={(e) => seek(-30, e)} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }}>
+              <RotateCcw size={18} /> -30s
+            </button>
+            <button onClick={(e) => seek(30, e)} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }}>
+              <RotateCw size={18} /> +30s
+            </button>
+            <button onClick={(e) => seek(300, e)} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--primary)', padding: '6px 16px', borderRadius: '6px', color: 'white', fontWeight: 600, fontSize: '0.85rem' }}>
+              <FastForward size={18} /> +5m
+            </button>
           </div>
 
-          {/* Center Jumps (Optional Big Icons) */}
-          <div style={{ 
-            position: 'absolute', 
-            top: '50%', left: '50%', 
-            transform: 'translate(-50%, -50%)',
-            display: 'flex',
-            gap: '3rem',
-            alignItems: 'center'
-          }}>
-            <button onClick={() => seek(-30)} style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '50%', color: 'white' }}>
-              <RotateCcw size={32} />
-              <span style={{ position: 'absolute', bottom: '-1.5rem', left: '50%', transform: 'translateX(-50%)', fontSize: '0.75rem' }}>-30s</span>
-            </button>
-            <button onClick={togglePlay} style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '50%', color: 'white', transform: 'scale(1.2)' }}>
-              {isPlaying ? <Pause size={32} /> : <Play size={32} />}
-            </button>
-            <button onClick={() => seek(30)} style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '50%', color: 'white' }}>
-              <RotateCw size={32} />
-              <span style={{ position: 'absolute', bottom: '-1.5rem', left: '50%', transform: 'translateX(-50%)', fontSize: '0.75rem' }}>+30s</span>
-            </button>
-          </div>
+          {/* Spacer */}
+          <div style={{ flex: 1 }} />
 
-          {/* Bottom Bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                <button onClick={() => seek(300)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px' }}>
-                    <FastForward size={20} /> +5m
-                </button>
-             </div>
-
-             <div style={{ display: 'flex', gap: '1rem' }}>
-                <button onClick={toggleFullscreen} style={{ background: 'rgba(255,255,255,0.2)', padding: '0.6rem', borderRadius: '50%' }}>
-                    {isFullscreen ? <Minimize size={22} /> : <Maximize size={22} />}
-                </button>
-             </div>
-          </div>
+          {/* Right Actions */}
+          <button onClick={toggleFullscreen} style={{ color: 'white', opacity: 0.8, cursor: 'pointer' }}>
+            {isFullscreen ? <Minimize size={24} /> : <Maximize size={24} />}
+          </button>
         </div>
       </div>
     </div>
