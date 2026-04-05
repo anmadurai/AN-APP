@@ -54,7 +54,7 @@ const Home = () => {
               transition={{ delay: 0.1 }}
               style={{ fontSize: '1.25rem', color: 'var(--secondary)', marginBottom: '2.5rem' }}
             >
-              Welcome to ALL MADURAI HOLINESS CHURCH. Watch our Spritual sermons and join  With us And Lets go Together to new jerusalem  of faith and devotion.
+              Welcome to ALL MADURAI HOLINESS CHURCH. Watch our Spritual sermons and Lets go Together to new jerusalem  of faith and devotion.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -65,9 +65,7 @@ const Home = () => {
               <Link to="/sermons" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>
                 <Play size={20} fill="white" /> Start Watching
               </Link>
-              <Link to="/login" className="btn btn-secondary" style={{ padding: '1rem 2rem' }}>
-                Join  with us
-              </Link>
+
             </motion.div>
           </div>
         </div>
