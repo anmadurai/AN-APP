@@ -31,13 +31,40 @@ const Home = () => {
     <div style={{ paddingBottom: '4rem' }}>
       {/* HERO SECTION */}
       <section style={{
-        background: 'linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)',
-        padding: '6rem 0',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: '8rem 0',
         borderBottom: '1px solid var(--border)'
       }}>
-        <div className="container">
+        {/* Background Image with Blur */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'url("/hero-bg.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 20%',
+          filter: 'blur(8px) brightness(0.9)',
+          transform: 'scale(1.1)', // Prevents blurred edges from showing
+          zIndex: 0
+        }} />
+        
+        {/* Soft Overlay for readability */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.6))',
+          zIndex: 1
+        }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div style={{
-            maxWidth: '650px',
+            maxWidth: '700px',
             margin: '0 auto',
             textAlign: 'center'
           }}>
